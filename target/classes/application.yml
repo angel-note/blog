@@ -1,8 +1,0 @@
-# 公共配置
-spring:
-  # 模板配置
-  thymeleaf:
-    mode: HTML
-  # 指定当前的配置文件为开发环境下的配置文件
-  profiles:
-    active: dev     # 指定后缀，系统就会找到application-dev.yml文件
