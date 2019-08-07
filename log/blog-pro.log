@@ -1,0 +1,8 @@
+2019-08-06 02:08:41.836  INFO 2280 --- [main] com.angel.BlogApplication                : Starting BlogApplication on zhouweiguodeAir with PID 2280 (started by zhouwg in /Users/zhouwg/zwgangel/DevWorkSpace/Intellij IDEA/blog)
+2019-08-06 02:08:41.852  INFO 2280 --- [main] com.angel.BlogApplication                : The following profiles are active: pro
+2019-08-06 02:08:47.445  WARN 2280 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-08-06 02:08:47.934  INFO 2280 --- [main] com.angel.BlogApplication                : Started BlogApplication in 7.012 seconds (JVM running for 8.362)
+2019-08-06 19:12:11.636  INFO 570 --- [main] com.angel.BlogApplication                : Starting BlogApplication on zhouweiguodeMacBook-Air.local with PID 570 (started by zhouwg in /Users/zhouwg/zwgangel/DevWorkSpace/Intellij IDEA/blog)
+2019-08-06 19:12:11.640  INFO 570 --- [main] com.angel.BlogApplication                : The following profiles are active: pro
+2019-08-06 19:12:17.855  WARN 570 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-08-06 19:12:18.415  INFO 570 --- [main] com.angel.BlogApplication                : Started BlogApplication in 7.922 seconds (JVM running for 9.388)

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments-admin :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--移动端的设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理-标签新增</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <!-- 第一步 : 集成MarkDown插件(引入markdown的css样式文件) -->
+    <link rel="stylesheet" href="../../static/libs/editormd/css/editormd.min.css">
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <!--
+        ui : 指的是ui组件
+        inverted : 默认是白的，加上这个代表反转的意思，就变成黑色了
+        attached : 表示依附在界面上，没有圆角
+        m-padded-tb-mini : 自定义设置的样式，上和下进行填充
+        m-shadow-small : 自定义样式，导航的阴影效果
+    -->
+    <nav th:replace="admin/_fragments-admin :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <!-- 制作导航组件 -->
+            <!-- secondary :去除下面设置的灰色竖线 -->
+            <!-- stackable : 表示移动端自适应，表示屏幕小的时候，可堆叠-->
+            <div class="ui inverted secondary stackable menu">
+                <!-- 制作标题 -->
+                <!-- teal:表示设置颜色-->
+                <!-- item:表示条目，会有一条淡灰色的竖线-->
+                <!-- m-mobile-hide：自定义样式，当屏幕是移动端时时候，需要对其item菜单进行隐藏-->
+                <h2 class="ui teal header item">后台管理</h2>
+                <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                <!-- 定义右边的头像登录部分 -->
+                <div class="right m-item m-mobile-hide menu">
+                    <!-- dropdown : 定义下拉菜单(详见Semantic手册中的下拉菜单) -->
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100" alt="用户登录头像"> Angel.zhou
+                        </div>
+                        <!-- 下拉小三角-->
+                        <i class="dropdown icon"></i>
+                        <!-- 下拉菜单的定义 -->
+                        <div class="menu">
+                            <a href="#" class="item">注销</a>
+                            <a href="#" class="item">修改密码</a>
+                            <a href="#" class="item">更改个人信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 当在移动端的时候，需要隐藏导航栏到菜单按钮中-->
+        <!-- 需要使用绝对样式进行布局 -->
+        <!-- m-mobile-show：自定义样式，当屏幕是宽屏时时候，需要对其菜单按钮进行隐藏，当屏幕是移动端时候，需要对其菜单按钮进行显示，-->
+        <!-- menu toggle : 让按钮进行剧中对齐-->
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!-- 定义一个二级导航 -->
+    <!-- attached : 依附连接到上一个元素 -->
+    <!-- pointing : 出现一个小的向下三角-->
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <!-- right: 菜单靠右边对齐 -->
+            <div class="right menu">
+                <a href="#" th:href="@{/admin/tags}" class="item">列表-标签</a>
+                <a href="#" th:href="@{/admin/tags/input}" class="active teal item">新增-标签</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 中间内容 -->
+    <div class="m-container m-padded-tb-big">
+        <div class="ui container">
+            <!-- 定义一个表单 -->
+            <!-- 第一步：model.addAttribute("tag",new Type()); 需要在Controller设置这行代码，不然后面界面上拿不到'tag'对象-->
+            <!-- th:object="${tag}": 表示从后端进行拿到错误的值。且把拿到的信息设置到object里面-->
+            <!-- th:value="*{name}": 表示从object中拿到name的值 。* 指的是object-->
+            <!-- th:if="${#fields.hasErrors('name')}" : 这样的话，才会有作用。-->
+            <!--
+                th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})}" :
+                    如果 id==null，则表示新增，则调用 @{/admin/tags} 这个请求,去新增
+                    如果 id!=null，则表示新增，则调用 @{/admin/tags/{id}(id=*{id})} 这个请求，去修改
+            -->
+            <form action="#" method="post" class="ui form" th:object="${tag}" th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})}" >
+
+                <input type="hidden" name="id" th:value="*{id}">     <!-- 设置一个隐藏域，用来设置修改的id的值 -->
+
+                <!--  引用图片地址：首图引用地址-->
+                <!-- required : 表示该form表单需要校验，并在尾部进行js校验-->
+                <div class="required field">
+                    <div class="ui left labeled input">
+                        <label class="ui teal basic label">名称</label>
+                        <input type="text" name="name" placeholder="标签名称" th:value="*{name}">
+                    </div>
+                </div>
+                <!-- 如果验证没有通过，则需要把错误信息返回到界面上，进行友好提示 -->
+                <!-- ui error message : 因为你制定了规则，所以系统会默认将错误信息放入到ui error message 这个文本中-->
+                <div class="ui error message"></div>
+
+                <!--
+                    既然在后端也做了非空校验，那么怎么在前端进行接收呢？
+                    做用 thymeleaf语法进行接收
+                 -->
+                <!--/*/
+                    <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                        <i class="close icon"></i>
+                        <div class="header">验证失败</div>
+                        <p th:errors="*{name}">提交信息不符合规则</p>
+                    </div>
+                /*/-->
+
+                <!-- 定义一个按钮：提交 -->
+                <div class="ui right aligned container">
+                    <!-- type="button" : type如果不指定值 ，那么默认点击，就是提交表单(type="submit") -->
+                    <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                    <!-- class="submit" : 意思就是当你点击回车键的时候会自动提交表单 -->
+                    <!--
+                        <button class="ui teal submit button">提交</button> 当设置了用回车键去提交时，会插入一条数据到数据库中，
+                        但是当你用鼠标点击时，则会请求两次，也就是会向数据库中插入两条数据。因此。这里移除回车提交事件。只使用鼠标单击请求事件。
+                        但是默认，也是支持回车请求事件。所以没必要再次设置submit
+                     -->
+                    <button class="ui teal button">提交</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+    <!-- 底部的footer -->
+    <!--
+        segment : 以线框的形式出来
+        vertical : 表示垂直的形式，不是圆角
+     -->
+    <footer th:replace="admin/_fragments-admin :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+        <!-- center aligned : 表示居中 -->
+        <div class="ui center aligned container">
+            <!-- BootStrap的表格是以12格的形式，而semantic是16格布局-->
+            <!-- divided : 表示竖线分隔线-->
+            <div class="ui inverted divided stackable grid">
+                <!--
+                    three: 表示这个Div占3格
+                    wide:表示真满
+                    column:表示一列的意思
+                -->
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                        <div class="item">
+                            <!-- rounded : 表示圆角显示图片 -->
+                            <img src="../../static/images/wechat.jpeg" class="ui rounded image" alt="这是一张微信的图片" style="width: 110px;">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="three wide column">
+                    <!-- 选用竖着的列表 -->
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">用户故事</a>
+                        <a href="#" class="item">练习清单</a>
+                        <a href="#" class="item">失败要趁早</a>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <!-- 选用竖着的列表 -->
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">E-mail : 1244960319@qq.com</a>
+                        <a href="#" class="item">QQ : 1244960319</a>
+                    </div>
+
+                </div>
+                <div class="six wide column">
+                    <!-- 选用竖着的列表 -->
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">Angel.zhou</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的人个博客，分享关于编程、写作、思考、相关的任何内容，希望可以给来到这儿的人有所帮助....</p>
+                </div>
+            </div>
+
+            <!-- 画底部的线 -->
+            <!-- divider : 代表的是分隔线-->
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright&copy;  2019 - 2020 Angel.zhou Designed by Angel.zhou</p>
+        </div>
+    </footer>
+
+<!--在静态页面是注释，但是在 Thymeleaf 是有效的-->
+<!--/*/<th:block th:replace="admin/_fragments-admin :: script" >/*/-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+<script>
+
+    /*当屏幕是移动端的时候，需要对菜单按钮进行操作*/
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');  // 点击后对菜单进行判断，然后移除还是操作
+    })
+
+    // 登录用户的下拉菜单，初始化组件
+    $('.ui.dropdown').dropdown({
+        on : 'hover'    /*默认是点击事件，所以我们需要使用鼠标放上去自动弹出框*/
+    });
+
+    /*对表单进行验证*/
+    /*这里就定义了一个表单*/
+    $('.ui.form').form({
+        fields : {
+            name : {   /* 对这个 name 进行验证*/
+                identifier : 'name',       /*这里的'name'需要和 name='name'一致*/
+                rules : [{          /*制定验证规则*/
+                    type : 'empty',  /*非空验证*/
+                    prompt : '请输入分类名称'     /*如果验证不通过，则给出友好提示*/ /*如果验证不能过，则将错误的提示信息放入到ui error message 这个div中进行提示*/
+                }]
+            }
+        }
+    })
+</script>
+</body>
+</html>

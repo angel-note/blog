@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- 使用 _fragments.html定义的 fragments的代码片段，后面接参数，使用~{::title}传递参数，其中的title指的是<title>标签-->
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--移动端的设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+<!-- 导航栏 -->
+<!--
+    ui : 指的是ui组件
+    inverted : 默认是白的，加上这个代表反转的意思，就变成黑色了
+    attached : 表示依附在界面上，没有圆角
+    m-padded-tb-mini : 自定义设置的样式，上和下进行填充
+    m-shadow-small : 自定义样式，导航的阴影效果
+-->
+<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <!-- 制作导航组件 -->
+        <!-- secondary :去除下面设置的灰色竖线 -->
+        <!-- stackable : 表示移动端自适应，表示屏幕小的时候，可堆叠-->
+        <div class="ui inverted secondary stackable menu">
+            <!-- 制作标题 -->
+            <!-- teal:表示设置颜色-->
+            <!-- item:表示条目，会有一条淡灰色的竖线-->
+            <!-- m-mobile-hide：自定义样式，当屏幕是移动端时时候，需要对其item菜单进行隐藏-->
+            <!-- active : 指的是当前活跃选中的哪个页面 -->
+            <h2 class="ui teal header item">Angel.zhou</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+            <!-- 定义右边的搜索框 -->
+            <div class="m-item right item m-mobile-hide">
+                <!-- transparent : 表示透明 -->
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="search....">
+                    <!-- 右边搜索按钮 link：表示是一个手的形状-->
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 当在移动端的时候，需要隐藏导航栏到菜单按钮中-->
+    <!-- 需要使用绝对样式进行布局 -->
+    <!-- m-mobile-show：自定义样式，当屏幕是宽屏时时候，需要对其菜单按钮进行隐藏，当屏幕是移动端时候，需要对其菜单按钮进行显示，-->
+    <!-- menu toggle : 让按钮进行剧中对齐-->
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!-- 正文内容 -->
+<div class="m-container-small m-padded-tb-massive">
+    <div class="ui error message m-padded-tb-massive">
+        <div class="ui container">
+            <h2>500</h2>
+            <p>对不起，服务异常，请联系管理员</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 底部的footer -->
+<!--
+    segment : 以线框的形式出来
+    vertical : 表示垂直的形式，不是圆角
+ -->
+<footer th:replace="_fragments :: footer"  class="ui inverted vertical segment m-padded-tb-massive">
+    <!-- center aligned : 表示居中 -->
+    <div class="ui center aligned container">
+        <!-- BootStrap的表格是以12格的形式，而semantic是16格布局-->
+        <!-- divided : 表示竖线分隔线-->
+        <div class="ui inverted divided stackable grid">
+            <!--
+                three: 表示这个Div占3格
+                wide:表示真满
+                column:表示一列的意思
+            -->
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <!-- rounded : 表示圆角显示图片 -->
+                        <img src="../../static/images/wechat.jpeg" th:src="@{/images/wechat.jpeg}" class="ui rounded image" alt="这是一张微信的图片" style="width: 110px;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="three wide column">
+                <!-- 选用竖着的列表 -->
+                <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">练习清单</a>
+                    <a href="#" class="item">失败要趁早</a>
+                </div>
+            </div>
+            <div class="four wide column">
+                <!-- 选用竖着的列表 -->
+                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">E-mail : 1244960319@qq.com</a>
+                    <a href="#" class="item">QQ : 1244960319</a>
+                </div>
+
+            </div>
+            <div class="six wide column">
+                <!-- 选用竖着的列表 -->
+                <h4 class="ui inverted header m-text-thin m-text-spaced">Angel.zhou</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的人个博客，分享关于编程、写作、思考、相关的任何内容，希望可以给来到这儿的人有所帮助....</p>
+            </div>
+        </div>
+
+        <!-- 画底部的线 -->
+        <!-- divider : 代表的是分隔线-->
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright&copy;  2019 - 2020 Angel.zhou Designed by Angel.zhou</p>
+    </div>
+</footer>
+
+
+
+
+<!--在静态页面是注释，但是在 Thymeleaf 是有效的-->
+<!--/*/<th:block th:replace="_fragments :: script" >/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
+<script>
+    /*当屏幕是移动端的时候，需要对菜单按钮进行操作*/
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');  // 点击后对菜单进行判断，然后移除还是操作
+    })
+</script>
+</body>
+</html>

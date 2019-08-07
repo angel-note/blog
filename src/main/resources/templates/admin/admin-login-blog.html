@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments-admin :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--移动端的设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理-登录</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+<!-- max-width: 30em !important; 控制它的一个宽度 -->
+<!-- m-padded-tb-massive : 上下间距-->
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
+    <div class="ui container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        个人专属博客后台管理登录
+                    </div>
+                </h2>
+                <!--
+                    th:action="@{/admin/login}" : 使用 thymeleaf 语法发送提交请求, 请求 /admin下的/login方法
+                 -->
+                <form class="ui large form" method="post" action="#" th:action="@{/admin/login}">
+                    <div class="ui segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <button class="ui fluid large teal submit button">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                    </div>
+                    <!-- 这里的错误是前端的错误信息显示，比如：用户名不能为空-->
+                    <div class="ui error mini message"></div>
+                    <!-- 这里的错误是后台传入到前端需要展示的错误信息提示，比如：用户名或密码错误-->
+                    <!--
+                        th:unless="${#strings.isEmpty(message)}" : 先判断：后台传入的消息是否为空
+                        th:text="${message} : 上面的判断不为空的，则显示该错误消息
+                     -->
+                    <div class="ui negative mini message"  th:unless="${#strings.isEmpty(message)}" th:text="${message}">
+                        用户名和密码错误!!
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--在静态页面是注释，但是在 Thymeleaf 是有效的-->
+<!--/*/<th:block th:replace="admin/_fragments-admin :: script" >/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    /*对登录表单进行验证*/
+    /*这里就定义了一个表单*/
+    $('.ui.form').form({
+        fields : {
+            username : {   /* 对这个 username 进行验证*/
+                identifier : 'username',       /*这里的'username'需要和 name='username'一致*/
+                rules : [{          /*制定验证规则*/
+                    type : 'empty',  /*非空验证*/
+                    prompt : '请输入用户名'     /*如果验证不通过，则给出友好提示*/ /*如果验证不能过，则将错误的提示信息放入到ui error message 这个div中进行提示*/
+                }]
+            },
+            password : {   /* 对这个 password 进行验证*/
+                identifier : 'password',       /*这里的'password'需要和 name='password'一致*/
+                rules : [{          /*制定验证规则*/
+                    type : 'empty',  /*非空验证*/
+                    prompt : '请输入密码'     /*如果验证不通过，则给出友好提示*/ /*如果验证不能过，则将错误的提示信息放入到ui error message 这个div中进行提示*/
+                }]
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
