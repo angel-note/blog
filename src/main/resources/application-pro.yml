@@ -1,0 +1,25 @@
+# 生产环境
+spring:
+  # 数据库的配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?characterEncoding=utf-8
+    username: root
+    password: MySQL_Zhou1229
+  # jpa的配置
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true      # 可以把SQL语句输出在控制台以及日志文件中，默认是false
+
+# 日志配置
+logging:
+  level:
+    root: warn
+    com.angel: info    #日志级别
+  file: log/blog-pro.log  # 生成日志文件  默认是10M进行切分
+
+# 默认的端口是8080
+# 但生产环境上的端口可以设置为8888(比如)
+server:
+  port: 8888
